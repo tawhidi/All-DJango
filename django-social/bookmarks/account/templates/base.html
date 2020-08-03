@@ -10,9 +10,30 @@
 <body>
     <div id="header">
         <span class="logo">Bookmarks</span>
+        {% if request.user.is_authenticated %}
+            <ul class="menu">
+                <li {% if section == 'dashboard' %} class="selected" {% endif %}>
+                <a href="{% url 'dashboard' %}">My dashboard </a>
+                </li>
+                 <li {% if section == 'images' %} class="selected" {% endif %}>
+                <a href="#">Images </a>
+                </li>
+                <li {% if section == 'people' %} class="selected" {% endif %}>
+                <a href="#">People</a>
+                </li>
+            </ul>
+        {% endif %}
+        <span class="user">
+        {% if request.user.is_authenticated %}
+        Hello  {{ request.user.first_name }} {{ request.user.last_name }} ,
+        <a href="{% url 'logout' %}">Log Out</a>
+        {% else %} 
+        <a href="{% url 'login' %}">Login</af
+        {% endif %}
+        </span>
     </div>
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div> 
 </body>
 </html>
